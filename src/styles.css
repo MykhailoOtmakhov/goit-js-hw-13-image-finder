@@ -18,3 +18,78 @@ body {
    */
   background-image: url('./images/bg-pattern.png');
 }
+
+.search-form{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content:center;
+  /* width: 100%; */
+  /* margin-bottom: 20px;   */
+  /* min-height: 200px; */
+  /* align-items: center;
+  text-align: center; */
+}
+
+
+.search-input{
+  margin-right: 20px;
+  
+}
+
+.load-more{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  /* min-height: 50px; */
+  margin-top: 20px;
+  /* background-color: aqua; */
+  border: solid 2px purple;
+  border-radius: 2px;
+  justify-content:center;
+}
+
+.js-photo-container{
+  /* background-color: #yellow; */
+}
+
+.item{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  /* justify-content:center; */
+  width: fit-content; 
+  background-color: aqua;
+  border: solid 2px  pink;
+  border-radius: 2px;
+}
+
+.photo-card{
+  /* display: flex; */
+  /* margin-left: 500px; */
+  margin-right: auto;
+  min-width: 400px;
+  min-height: 300px;
+  /* align-items:center; */
+}
+
+.stats{
+  display: flex;
+  align-items: center;
+  justify-content:center;
+
+  }
+
+.stats-item{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content:center;
+  margin:20px;
+  
+
+}
+
+

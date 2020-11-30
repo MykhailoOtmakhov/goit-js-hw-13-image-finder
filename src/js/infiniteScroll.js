@@ -1,1 +1,0 @@
-import InfiniteScroll from 'infinite-scroll';

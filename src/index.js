@@ -1,6 +1,9 @@
 import './styles.css';
 import imageCardsTpl from './tamplates/photo-cards.hbs';
 import ImageApiService from './js/apiService.js';
+// import infiniteScroll from './js/infiniteScroll.js';
+// import InfiniteScroll from 'infinite-scroll';
+// import './js/io.js';
 // import onSearch from './js/onSearch.js';
 // import { alert, error} from'@pnotify/core';
 // import"@pnotify/core/dist/PNotify.css";
@@ -16,6 +19,20 @@ import ImageApiService from './js/apiService.js';
  refs.queryForm.addEventListener('submit', onSearch)
  
  const imageApiService = new ImageApiService(); 
+
+//  const infiniteScrollService = new InfiniteScroll('.js-photo-container',{
+//    path(){
+//      const url = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&page=${this.pageIndex}&key=19192524-a42a2a32afb109ad508e945f7`;
+//      return url;
+//    },
+//    responseType: 'text',
+//    history: false,
+//  } );
+
+//  fetch(`https://pixabay.com/api/?image_type=photo&orientation=horizontal&page=${this.pageIndex}&key=19192524-a42a2a32afb109ad508e945f7`);
+
+
+//  console.log(infiniteScrollService)
 
  function onSearch (e) {
   e.preventDefault();
@@ -34,6 +51,7 @@ import ImageApiService from './js/apiService.js';
    function renderImagesCard (hits){
     const markup = imageCardsTpl(hits);
     return refs.photoContainer.insertAdjacentHTML('beforeend',markup);
+    // infiniteScroll();
 }
 
 function onFetchError(error) {
@@ -44,28 +62,50 @@ function clearResult(){
   refs.photoContainer.innerHTML=''
 }
 
-refs.loadMoreBtn.addEventListener('click', onBtnClick);
+// // Вариант с кнопкой
 
-function onScrollTo() {
-  let value = document.body.scrollHeight;
-   setTimeout(() => {
-    window.scrollTo({
-      top: value,
-      left: 0,
-      behavior: 'smooth',
-    });
-  }, 1000);
-}
+// refs.loadMoreBtn.addEventListener('click', onBtnClick);
 
-  function onBtnClick(){
-    imageApiService.fetchImages()   
-    .then(renderImagesCard)
-    onScrollTo()
-  }
+// function onScrollTo() {
+//   let value = document.body.scrollHeight;
+//    setTimeout(() => {
+//     window.scrollTo({
+//       top: value,
+//       left: 0,
+//       behavior: 'smooth',
+//     });
+//   }, 1000);
+// }
+   
+  // function onBtnClick(){
+  //   imageApiService.fetchImages()   
+  //   .then(renderImagesCard)
+  //   onScrollTo()
+  // }
 
   function alertNotification(err){
   error ({
       text: `${err}`,
     })
   }
+
   
+  
+  const options = {
+    rootMargin: '100px',
+};
+
+  const onEntry = entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting && imageApiService.query !==''){
+          imageApiService.fetchImages()
+          .then(renderImagesCard)
+          .catch(alertNotification);
+         }
+      })
+    }
+  
+
+const observer = new IntersectionObserver(onEntry,options);
+
+observer.observe(document.querySelector('.sentinel'))

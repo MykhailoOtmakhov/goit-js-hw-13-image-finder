@@ -2,6 +2,8 @@ import './styles.css';
 import imageCardsTpl from './tamplates/photo-cards.hbs';
 import ImageApiService from './js/apiService.js';
 import { alert, error} from'@pnotify/core';
+import * as basicLightbox from 'basiclightbox';
+import '../node_modules/basiclightbox/dist/basicLightbox.min.css'
 // import"@pnotify/core/dist/PNotify.css";
 // import"@pnotify/core/dist/BrightTheme.css";
 
@@ -67,6 +69,18 @@ function onScrollTo() {
   error ({
       text: `${err}`,
     })
+  }
+
+  refs.photoContainer.addEventListener('click',onImageClick);
+
+  function onImageClick(event) {
+    if (event.target.nodeName !== 'IMG')
+    {
+      return
+      }
+    const instance = basicLightbox.create(`
+        <img class="imgModal" src="${event.target.dataset.source}" width=“800” height=“600">`)
+    instance.show()
   }
 
   // Бесконечный скрол
